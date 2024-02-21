@@ -4,38 +4,48 @@ using namespace std;
 class Array
 {
     private:
-        int length = 0;
+        int length = 8;
+        int occupied_length = 0;
         int* array = new int[length];
+
+        void reallocate_array()
+        {
+            array = (int*) realloc(array, length*2);
+            length = length * 2;
+        }
     public:
         Array()
         {
             cout << "How many elements do you want in the array: ";
-            cin >> length;
-            array = (int*) realloc(array, length);
-            for (int i = 0; i < length; i++)
+            cin >> occupied_length;
+            
+            if (occupied_length > length) // In case, array is full, it needs to be reallocated
+                reallocate_array();
+
+            for (int i = 0; i < occupied_length; i++)
                 cin >> *(array + i);
             Print();
         }
+        ~Array() { delete array; }
         void insert(int pos, int data)
         {
-            if (pos > length) {cout << "Invalid Position!\n"; return; }
+            if (pos > occupied_length) {cout << "Invalid Position!\n"; return; }
 
-            length += 1;
-            array = (int*) realloc(array, length);
-
-            if (pos == length+1){ *(array+length) = data; return;}
+            if (pos == occupied_length){ *(array+occupied_length) = data; return;}
+            occupied_length += 1;
+            if (occupied_length > length) { reallocate_array(); }
     
-            for(int i = length - 1; i >= pos; i--)
+            for(int i = occupied_length-2; i >= pos-1; i--)
                 *(array+i+1) = *(array+i);
-            *(array + pos) = data;
+            *(array + pos - 1) = data;
         }
         int size()
         {
-            return length;
+            return occupied_length;
         }
         void Print()
         {
-            for(int i =0; i <length; i++) { cout << *(array+i) << " "; }
+            for(int i =0; i <occupied_length; i++) { cout << *(array+i) << " "; }
             cout << endl;
         }
 };
@@ -46,5 +56,10 @@ int main()
     cout << endl << arr.size() << endl;
     arr.insert(5,45);
     arr.Print();
+    arr.insert(3,35);
+    arr.Print();
+    arr.insert(4,86);
+    arr.Print();
+    cout << arr.size() << endl;
     return 0;
 }
