@@ -19,7 +19,7 @@ class Array
             cout << "How many elements do you want in the array: ";
             cin >> occupied_length;
             
-            if (occupied_length > length) // In case, array is full, it needs to be reallocated
+            if (occupied_length > length) // In case array is full, it needs to be reallocated
                 reallocate_array();
 
             for (int i = 0; i < occupied_length; i++)
@@ -31,9 +31,9 @@ class Array
         {
             if (pos > occupied_length) {cout << "Invalid Position!\n"; return; }
 
-            if (pos == occupied_length){ *(array+occupied_length) = data; return;}
             occupied_length += 1;
             if (occupied_length > length) { reallocate_array(); }
+            if (pos == occupied_length){ *(array+occupied_length) = data; return;}
     
             for(int i = occupied_length-2; i >= pos-1; i--)
                 *(array+i+1) = *(array+i);
@@ -54,7 +54,7 @@ int main()
 {
     Array arr;
     cout << endl << arr.size() << endl;
-    arr.insert(5,45);
+    arr.insert(7,45);
     arr.Print();
     arr.insert(3,35);
     arr.Print();
