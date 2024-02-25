@@ -32,7 +32,8 @@ class Array
             if (pos > occupied_length) {cout << "Invalid Position!\n"; return; }
 
             occupied_length += 1;
-            if (occupied_length > length) { reallocate_array(); }
+            if (occupied_length >  length) { reallocate_array(); }
+
             if (pos == occupied_length){ *(array+occupied_length) = data; return;}
     
             for(int i = occupied_length-2; i >= pos-1; i--)
@@ -53,7 +54,6 @@ class Array
 int main()
 {
     Array arr;
-    cout << endl << arr.size() << endl;
     arr.insert(7,45);
     arr.Print();
     arr.insert(3,35);
