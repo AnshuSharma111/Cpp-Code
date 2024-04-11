@@ -31,11 +31,18 @@ class Stack
         }
         void pop()
         {
-            if (top == NULL) { cout << "Enpty stack!\n"; return; }
+            if (isEmpty()) { cout << "Stack Underflow!\n"; return; }
             struct Node* temp;
             temp = top;
             top = top->next;
             free(temp);
+        }
+        bool isEmpty(){
+            if (top == NULL) return true;
+            return false;
+        }
+        int peek(){
+            return top->data;
         }
 };
 
@@ -50,10 +57,12 @@ int main()
     stack.push(12);
 
     stack.print();
+    cout << stack.peek() << "\n";
 
     stack.pop();
     stack.pop();
 
     stack.print();
+    cout << stack.peek() << "\n";
     return 0;
 }
