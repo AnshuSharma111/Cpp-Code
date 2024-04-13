@@ -27,7 +27,7 @@ class Stack{
             stack[top] = data;
         }
         int pop(){
-            if (isEmpty()) { cout << "Stack Underflow!\n"; return 0;}
+            if (isEmpty()) { return -1;}
             int ret = stack[top];
             stack[top] = 0;
             top--;
@@ -59,7 +59,10 @@ int main(){
             s.push(ele);
             break;
         case '2':
-            cout << "Element popped is: " << s.pop();
+            int x = s.pop();
+            if (x == -1){ cout << "Stack Underflow!\n"; }
+            else
+                cout << "Element popped is: " << x;
             break;
         case '3':
             cout << "The top element is: " << s.peek() << endl;
